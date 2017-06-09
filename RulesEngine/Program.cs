@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RulesEngine.RulesEngine;
+using System;
 using System.Linq;
 
 namespace RulesEngine
@@ -7,9 +8,49 @@ namespace RulesEngine
     {
         static void Main(string[] args)
         {
-            var counter = 0;
-            //counter = NumberRule(counter);
-            StringRule();
+            RuleStatement();
+        }
+
+        private static void RuleStatement()
+        {
+            for (var i = 0; i <= 6; i++)
+            {
+                var name = Console.ReadLine();
+
+                var soRule = new RuleStatement<string>(() => name == "so",
+                    new StopWithResultRule<string>("sonam"),
+                    new StopWithResultRule<string>("sarah"));
+
+                var kRule = new RuleStatement<string>(() => name == "k",
+                    new StopWithResultRule<string>("kapil"),
+                    new StopWithResultRule<string>("no name"));
+
+                var prule = new RuleStatement<string>(() => name.StartsWith("p"),
+                    new StopWithResultRule<string>("peter"),
+                    kRule);
+
+                var sRule = new RuleStatement<string>(() => name.StartsWith("s"), soRule, prule);
+
+
+                Console.Write($"{sRule.Process()}==={name}");
+                Console.WriteLine(Environment.NewLine);
+                Console.ReadLine();
+            }
+
+            /*
+                if name starts with s
+                   if name=so
+                       return sonam;
+                   else
+                       return sarah
+                else
+                    if name starts with p
+                        return peter
+                    else
+                        if name=k
+                        return kapil;
+                return noname
+            */
         }
 
         private static void StringRule()

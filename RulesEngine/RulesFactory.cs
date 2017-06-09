@@ -62,6 +62,5 @@ namespace RulesEngine
                 return0WhenLessThan10);
             return valueLessThan10Rule;
         }
-
     }
 }

@@ -27,6 +27,7 @@ namespace RulesEngine
                 () => number >= 100, () => 200, new StopRule<int>(200));
 
             return whenGreaterThan100LessThan200;
+
         }
 
         /// <summary>

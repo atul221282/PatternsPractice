@@ -6,13 +6,11 @@ namespace RulesEngine.RulesEngine
 {
     public class StopWithActionRule<T> : IRuleStatement<T>
     {
-        private readonly Action action;
-        private readonly T Value;
+        private readonly Func<T> func;
 
-        public StopWithActionRule(T Value, Action action)
+        public StopWithActionRule(Func<T> func)
         {
-            this.Value = Value;
-            this.action = action;
+            this.func = func;
         }
 
         public bool IsValid()
@@ -22,8 +20,7 @@ namespace RulesEngine.RulesEngine
 
         public T Process()
         {
-            action();
-            return Value;
+            return func();
         }
     }
 }

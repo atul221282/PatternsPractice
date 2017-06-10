@@ -31,18 +31,19 @@ namespace RulesEngine
             for (var i = 0; i <= 6; i++)
             {
                 var name = Console.ReadLine();
-                var nameInAction = "";
+                var nameInAction = string.Empty;
 
                 var soRule = new RuleStatement<string>(() => name == "so",
-                    new StopWithResultRule<string>("sonam"),
-                    new StopWithResultRule<string>("sarah"));
+                    new StopWithFuncRule<string>(() => "sonam"),
+                    new StopWithFuncRule<string>(() => "sarah"));
 
                 var kRule = new RuleStatement<string>(() => name == "k",
-                    new StopWithActionRule<string>(() => "kapil"),
-                    new StopWithResultRule<string>("no name"));
+                    new StopWithFuncRule<string>(() => "kapil"),
+                    new StopWithFuncRule<string>(() => "no name"));
+
 
                 var prule = new RuleStatement<string>(() => name.StartsWith("p"),
-                    new StopWithResultRule<string>("peter"),
+                    new StopWithFuncRule<string>(() => "peter"),
                     kRule);
 
                 var sRule = new RuleStatement<string>(() => name.StartsWith("s"), soRule, prule);

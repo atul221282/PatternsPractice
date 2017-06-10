@@ -4,19 +4,16 @@ using System.Text;
 
 namespace RulesEngine.RulesEngine
 {
-    public class StopWithActionRule<T> : IRuleStatement<T>
+    public class StopWithFuncRule<T> : IRuleStatement<T>
     {
         private readonly Func<T> func;
 
-        public StopWithActionRule(Func<T> func)
+        public StopWithFuncRule(Func<T> func)
         {
             this.func = func;
         }
 
-        public bool IsValid()
-        {
-            return true;
-        }
+        public bool IsValid => true;
 
         public T Process()
         {

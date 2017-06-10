@@ -6,7 +6,7 @@ namespace RulesEngine.RulesEngine
 {
     public interface IRuleStatement<T>
     {
-        bool IsValid();
+        bool IsValid { get; }
 
         T Process();
     }

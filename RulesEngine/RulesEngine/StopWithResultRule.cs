@@ -13,10 +13,7 @@ namespace RulesEngine.RulesEngine
             this.Value = Value;
         }
 
-        public bool IsValid()
-        {
-            return true;
-        }
+        public bool IsValid => true;
 
         public T Process()
         {

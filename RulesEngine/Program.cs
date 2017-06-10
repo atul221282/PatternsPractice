@@ -17,13 +17,16 @@ namespace RulesEngine
                if name=so
                    return sonam;
                else
-                   return sarah
+                    if name = sa
+                        return sarah
+                    else
+                        return suk
             else
                 if name starts with p
                     return peter
                 else
                     if name=k
-                    return kapil;
+                        return kapil;
             return noname
         */
         private static void RuleStatement()
@@ -33,18 +36,25 @@ namespace RulesEngine
                 var name = Console.ReadLine();
                 var nameInAction = string.Empty;
 
+                var saRule = new RuleStatement<string>(() => name == "sa",
+                    new StopWithFuncRule<string>(() => "sarah"),
+                    new StopWithFuncRule<string>(() => "suk")
+                );
+
                 var soRule = new RuleStatement<string>(() => name == "so",
                     new StopWithFuncRule<string>(() => "sonam"),
-                    new StopWithFuncRule<string>(() => "sarah"));
+                    saRule
+                );
 
                 var kRule = new RuleStatement<string>(() => name == "k",
-                    new StopWithFuncRule<string>(() => "kapil"),
-                    new StopWithFuncRule<string>(() => "no name"));
-
+                    new StopWithFuncRule<string>(() => { nameInAction = "Kapil in action"; return "kapil"; }),
+                    new StopWithFuncRule<string>(() => { nameInAction = "No name in action"; return "no name"; })
+                );
 
                 var prule = new RuleStatement<string>(() => name.StartsWith("p"),
                     new StopWithFuncRule<string>(() => "peter"),
-                    kRule);
+                    kRule
+                );
 
                 var sRule = new RuleStatement<string>(() => name.StartsWith("s"), soRule, prule);
 

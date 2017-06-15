@@ -9,6 +9,7 @@ namespace Autofac.Repository
         private readonly IMemoryCache memoryCache;
 
         public CallLogger(ITestRepository repo, IMemoryCache memoryCache)
+        //public CallLogger()
         {
             this.repo = repo;
             this.memoryCache = memoryCache;

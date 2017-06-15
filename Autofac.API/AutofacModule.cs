@@ -15,8 +15,7 @@ namespace Autofac.API
             // It was then registered with Autofac using the Populate method in ConfigureServices.
             //builder.RegisterType<ValueService>().As<IValueService>()
             //    .InstancePerLifetimeScope();
-
-            ServiceModule.Register(builder);
+            builder.RegisterModule<ServiceModule>();
         }
     }
 }

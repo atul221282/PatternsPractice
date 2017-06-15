@@ -6,11 +6,13 @@ using System.Text;
 
 namespace Autofac.Service.Infrastructure
 {
-    public static class ServiceModule
+    public class ServiceModule : Module
     {
-        public static void Register(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
-            RepositoryModule.Register(builder);
+            builder.RegisterModule<RepositoryModule>();
+
+            //RepositoryModule.Register(builder);
 
             var dataAccess = typeof(ValueService).GetTypeInfo().Assembly;
 

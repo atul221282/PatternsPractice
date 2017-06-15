@@ -1,13 +1,18 @@
-﻿using Autofac.Extras.DynamicProxy;
+﻿using Autofac.Core;
+using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Autofac.Repository.Infrastructure
 {
-    public static class RepositoryModule
+    public class RepositoryModule : Module
     {
-        public static void Register(ContainerBuilder builder)
+        const string InterceptorsPropertyName = "Autofac.Extras.DynamicProxy2.RegistrationExtensions.InterceptorsPropertyName";
+
+        protected override void Load(ContainerBuilder builder)
         {
             var dataAccess = typeof(Repository).GetTypeInfo().Assembly;
 
@@ -19,7 +24,19 @@ namespace Autofac.Repository.Infrastructure
 
 
             builder.RegisterType<CallLogger>().As<ICallLogger>()
-                .Named<IInterceptor>(nameof(CallLogger));
+                .InstancePerLifetimeScope()
+                .Named<IInterceptor>(nameof(ICallLogger));
+
+            //builder.RegisterType<CallLogger>().As<ICallLogger>()
+            //.Named<IInterceptor>(nameof(ICallLogger))
+            //.InstancePerLifetimeScope();
+
+            //builder.RegisterType<Repository>()
+            //    .As<IRepository>()
+            //    .EnableClassInterceptors()
+            //    .InterceptedBy(typeof(CallLogger))
+            //    .InstancePerLifetimeScope();
+
         }
     }
 }

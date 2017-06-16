@@ -22,9 +22,7 @@ namespace Autofac.Repository
             var cacheValue = memoryCache.Get(key);
 
             if (cacheValue != null)
-            {
                 invocation.ReturnValue = cacheValue;
-            }
             else
             {
                 invocation.Proceed();

@@ -15,7 +15,7 @@ namespace Autofac.Repository.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
-            var dataAccess = typeof(Repository).GetTypeInfo().Assembly;
+            var dataAccess = typeof(RepositoryModule).GetTypeInfo().Assembly;
 
             builder.RegisterAssemblyTypes(dataAccess)
                    .Where(t => t.Name.EndsWith("Repository"))

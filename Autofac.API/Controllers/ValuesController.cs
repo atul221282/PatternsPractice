@@ -12,7 +12,8 @@ namespace Autofac.API.Controllers
         private readonly Func<IValueService> serviceFunc;
         private readonly Func<IEnumerable<ISomeService>> someServices;
 
-        public ValuesController(Func<IValueService> serviceFunc, Func<IEnumerable<ISomeService>> someServices)
+        public ValuesController(Func<IValueService> serviceFunc,
+            Func<IEnumerable<ISomeService>> someServices)
         {
             this.serviceFunc = serviceFunc;
             this.someServices = someServices;

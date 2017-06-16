@@ -37,11 +37,11 @@ namespace Autofac.API
             // Create the Autofac container builder.
             var builder = new ContainerBuilder();
 
-            // Add any Autofac modules or registrations.
-            builder.RegisterModule(new AutofacModule());
-
             // Populate the services.
             builder.Populate(services);
+
+            // Add any Autofac modules or registrations.
+            builder.RegisterModule(new AutofacModule());
 
             // Build the container.
             this.ApplicationContainer = builder.Build();

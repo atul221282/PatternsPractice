@@ -1,6 +1,7 @@
 ﻿using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,24 +20,21 @@ namespace Autofac.Repository.Infrastructure
             builder.RegisterAssemblyTypes(dataAccess)
                    .Where(t => t.Name.EndsWith("Repository"))
                    .AsImplementedInterfaces()
-                   .EnableClassInterceptors()
+                   .EnableInterfaceInterceptors()
                    .InstancePerLifetimeScope();
-
-
-            builder.RegisterType<CallLogger>().As<ICallLogger>()
-                .InstancePerLifetimeScope()
-                .Named<IInterceptor>(nameof(ICallLogger));
-
-            //builder.RegisterType<CallLogger>().As<ICallLogger>()
-            //.Named<IInterceptor>(nameof(ICallLogger))
-            //.InstancePerLifetimeScope();
 
             //builder.RegisterType<Repository>()
             //    .As<IRepository>()
-            //    .EnableClassInterceptors()
-            //    .InterceptedBy(typeof(CallLogger))
-            //    .InstancePerLifetimeScope();
+            //    .InstancePerLifetimeScope()
+            //      .InterceptedBy(typeof(ICallLogger))
+            //    .EnableInterfaceInterceptors();
 
+            //builder.Register(c => new CallLogger());
+            //builder.Register(c => new CallLogger(c.Resolve<ITestRepository>(), c.Resolve<IMemoryCache>()));
+            builder.RegisterType<CallLogger>().As<ICallLogger>().Named<IInterceptor>(nameof(ICallLogger));
+            builder.RegisterType<CacheInterceptor>().As<ICacheInterceptor>().Named<IInterceptor>(nameof(ICacheInterceptor));
+            //builder.RegisterType<CallLogger>().As<ICallLogger>()
+            //    .UsingConstructor(typeof(ITestRepository), typeof(IMemoryCache));
         }
     }
 }

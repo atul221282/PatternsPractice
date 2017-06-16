@@ -3,10 +3,9 @@ using System;
 
 namespace Autofac.Repository
 {
-    [Intercept(nameof(ICallLogger))]
     public class Repository : IRepository
     {
-        public virtual string GetRepoValue()
+        public string GetRepoValue()
         {
             return $"TEST REPO";
         }
@@ -17,13 +16,12 @@ namespace Autofac.Repository
         }
     }
 
-    //[Intercept(nameof(ICallLogger))]
+    [Intercept(nameof(ICacheInterceptor))]
+    [Intercept(nameof(ICallLogger))]
     public interface IRepository
     {
         string GetRepoValue();
 
         string GetById();
     }
-
-
 }

@@ -1,0 +1,6 @@
+﻿<form #searchForm="ngForm" (ngSubmit)="search(searchForm.value)">
+  <input type="text" name="search" (ngModel)="search" />
+  <br />
+  <input type="text" name="search2" (ngModel)="search2" />
+  <input type="submit" value="Search" />
+</form>

@@ -12,12 +12,10 @@ namespace Autofac.Service.Infrastructure
         {
             builder.RegisterModule<RepositoryModule>();
 
-            //RepositoryModule.Register(builder);
-
             var dataAccess = typeof(ValueService).GetTypeInfo().Assembly;
 
             builder.RegisterAssemblyTypes(dataAccess)
-                   .Where(t => t.Name.EndsWith("Service"))
+                   .Where(t => t.Name.EndsWith(@"Service"))
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
         }

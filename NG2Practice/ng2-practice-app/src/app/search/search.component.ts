@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
-import { TOASTR_TOKEN, Toastr } from '../service/toastr.service'
+import { TOASTR_TOKEN, Toastr } from '../service/toastr.service';
+import { JQUERY_TOKEN } from '../service/jquery.service';
 
 @Component({
     selector: 'app-search',
@@ -9,9 +10,20 @@ import { TOASTR_TOKEN, Toastr } from '../service/toastr.service'
 
 export class SearchComponent implements OnInit {
 
-    constructor( @Inject(TOASTR_TOKEN) private toastr: Toastr) { }
+    constructor(
+        @Inject(TOASTR_TOKEN) private toastr: Toastr,
+        @Inject(JQUERY_TOKEN) private $: any) {
+    }
 
     ngOnInit() {
+        let anchor = this.$("#someId");
+
+        setTimeout(() => {
+            this.toastr.warning("Ohh Ohh warning", "Warning");
+            anchor.html("TIMEOUT");
+        }, 5000)
+
+        anchor.html("TEST");
     }
 
     search(searchForm: any) {

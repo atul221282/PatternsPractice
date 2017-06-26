@@ -10,8 +10,8 @@ import {
     JQUERY_TOKEN
 } from './';
 
-declare let toastr: Toastr;
-declare let $: any;
+let toastr: Toastr = window['toastr'];
+let $: any = window['$'];
 
 @NgModule({
     declarations: [
@@ -25,7 +25,7 @@ declare let $: any;
         HttpModule
     ],
     providers: [
-        { provide: TOASTR_TOKEN, useFactory: () => { return toastr; } },
+        { provide: TOASTR_TOKEN, useValue: toastr },
         { provide: JQUERY_TOKEN, useValue: $ }
     ],
     bootstrap: [AppComponent]

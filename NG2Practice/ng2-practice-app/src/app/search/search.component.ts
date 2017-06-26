@@ -12,8 +12,8 @@ export class SearchComponent implements OnInit {
 
     constructor(
         @Inject(TOASTR_TOKEN) private toastr: Toastr,
-        @Inject(JQUERY_TOKEN) private $: any) {
-    }
+        @Inject(JQUERY_TOKEN) private $: any
+    ) { }
 
     ngOnInit() {
         let anchor = this.$("#someId");

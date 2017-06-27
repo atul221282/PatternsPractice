@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Inject } from '@angular/core';
+﻿import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { TOASTR_TOKEN, Toastr } from '../service/toastr.service';
 import { JQUERY_TOKEN } from '../service/jquery.service';
 
@@ -9,6 +9,10 @@ import { JQUERY_TOKEN } from '../service/jquery.service';
 })
 
 export class SearchComponent implements OnInit {
+
+    @Input() name: any;
+
+    @Output() change = new EventEmitter<string>();
 
     constructor(
         @Inject(TOASTR_TOKEN) private toastr: Toastr,
@@ -27,7 +31,10 @@ export class SearchComponent implements OnInit {
     }
 
     search(searchForm: any) {
-        this.toastr.error("OHH OOHH OOHH", "ERROR");
-        console.log(searchForm);
+    }
+
+    updateName() {
+        this.name["name"] = "Kapil";
+        this.change.emit('Ishana');
     }
 }

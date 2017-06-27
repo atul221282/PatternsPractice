@@ -1,4 +1,10 @@
 ﻿<h1>
   {{title | duration}}
-  <app-search></app-search>
+  <br />
+  {{parentName.name}}
+
+  <br />
+  {{firstName}}
+  <app-search [name]="parentName"
+              (change)="onChange($event)"></app-search>
 </h1>

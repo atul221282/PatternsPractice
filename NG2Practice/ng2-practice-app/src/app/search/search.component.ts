@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
         setTimeout(() => {
             this.toastr.warning("Ohh Ohh warning", "Warning");
             anchor.html("TIMEOUT");
-        }, 5000)
+        }, 5000);
 
         anchor.html("TEST");
     }

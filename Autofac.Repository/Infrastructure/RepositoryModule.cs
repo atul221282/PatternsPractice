@@ -11,14 +11,12 @@ namespace Autofac.Repository.Infrastructure
 {
     public class RepositoryModule : Module
     {
-        const string InterceptorsPropertyName = "Autofac.Extras.DynamicProxy2.RegistrationExtensions.InterceptorsPropertyName";
-
         protected override void Load(ContainerBuilder builder)
         {
             var dataAccess = typeof(RepositoryModule).GetTypeInfo().Assembly;
 
             builder.RegisterAssemblyTypes(dataAccess)
-                   .Where(t => t.Name.EndsWith("Repository"))
+                   .Where(t => t.Name.EndsWith(@"Repository"))
                    .AsImplementedInterfaces()
                    .EnableInterfaceInterceptors()
                    .InstancePerLifetimeScope();

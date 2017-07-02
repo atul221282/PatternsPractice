@@ -1,15 +1,12 @@
-import { TestBed, inject } from '@angular/core/testing';
+﻿import { TestBed, inject } from '@angular/core/testing';
 
-import { JqueryService } from './jquery.service';
+import { JQUERY_TOKEN } from "app";
 
 describe('JqueryService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [JqueryService]
+      providers: [JQUERY_TOKEN]
     });
   });
 
-  it('should ...', inject([JqueryService], (service: JqueryService) => {
-    expect(service).toBeTruthy();
-  }));
 });

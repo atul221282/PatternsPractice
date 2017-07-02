@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Autofac.Repository.Infrastructure;
 
 namespace Autofac.API
 {
@@ -30,6 +31,15 @@ namespace Autofac.API
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutomapperProfileConfiguration());
+            });
+
+            var mapper = config.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             // Add framework services.
             services.AddMvc();

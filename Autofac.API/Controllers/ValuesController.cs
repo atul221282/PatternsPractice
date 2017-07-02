@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Autofac.Service;
 using System;
 using System.Linq;
+using AutoMapper;
+using Autofac.Repository.Model;
 
 namespace Autofac.API.Controllers
 {
@@ -11,19 +13,26 @@ namespace Autofac.API.Controllers
     {
         private readonly Func<IValueService> serviceFunc;
         private readonly Func<IEnumerable<ISomeService>> someServices;
+        private readonly IMapper mapper;
 
         public ValuesController(Func<IValueService> serviceFunc,
-            Func<IEnumerable<ISomeService>> someServices)
+            Func<IEnumerable<ISomeService>> someServices, IMapper mapper)
         {
             this.serviceFunc = serviceFunc;
             this.someServices = someServices;
+            this.mapper = mapper;
         }
 
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { serviceFunc().Get(), "value2" }.Concat(this.someServices().Select(x => x.GetSome()));
+            var pp = new User();
+
+            var mapperPp = mapper.Map<UserModel>(pp);
+
+            return new string[] { serviceFunc().Get(), "value2" }
+            .Concat(this.someServices().Select(x => x.GetSome()));
         }
 
         // GET api/values/5

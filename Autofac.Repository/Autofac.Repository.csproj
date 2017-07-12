@@ -9,6 +9,7 @@
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.2.1" />
     <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
 </Project>

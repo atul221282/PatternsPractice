@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using AutoMapper;
 using Autofac.Repository.Model;
+using System.Reflection;
 
 namespace Autofac.API.Controllers
 {
@@ -31,8 +32,12 @@ namespace Autofac.API.Controllers
 
             var mapperPp = mapper.Map<UserModel>(pp);
 
-            return new string[] { serviceFunc().Get(), "value2" }
-            .Concat(this.someServices().Select(x => x.GetSome()));
+            var values = serviceFunc().Get();
+
+            var data = this.serviceFunc().Save();
+
+            var result = new string[] { data.GetType().GetProperty("Name").GetValue(data).ToString() };
+            return result;
         }
 
         // GET api/values/5

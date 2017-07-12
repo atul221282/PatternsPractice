@@ -1,6 +1,7 @@
 ﻿using Castle.DynamicProxy;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Autofac.Repository

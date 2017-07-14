@@ -48,6 +48,9 @@ namespace Autofac.Repository
         }
     }
 
+    /// <summary>
+    /// ICall Logger
+    /// </summary>
     public interface ICallLogger
     {
     }

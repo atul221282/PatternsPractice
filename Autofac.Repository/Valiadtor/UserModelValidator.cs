@@ -10,7 +10,7 @@ namespace Autofac.Repository.Valiadtor
     {
         public UserModelValidator()
         {
-            RuleFor(x => x.Email).NotEmpty();
+            RuleFor(x => x.Email).NotEmpty().MinimumLength(200);
         }
     }
 }

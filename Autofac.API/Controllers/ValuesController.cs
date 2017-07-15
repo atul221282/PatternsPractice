@@ -15,13 +15,13 @@ namespace Autofac.API.Controllers
     {
         private readonly Func<IValueService> serviceFunc;
         private readonly Func<IEnumerable<ISomeService>> someServices;
-        private readonly IMapper mapper;
-        private readonly IValidator<UserModel> validator;
-        private readonly IValidator<User> userValidator;
+        private readonly Lazy<IValidator<UserModel>> validator;
+        private readonly Lazy<IValidator<User>> userValidator;
+        private readonly Lazy<IMapper> mapper;
 
         public ValuesController(Func<IValueService> serviceFunc,
-            Func<IEnumerable<ISomeService>> someServices, IMapper mapper,
-            IValidator<UserModel> validator, IValidator<User> userValidator)
+            Func<IEnumerable<ISomeService>> someServices, Lazy<IMapper> mapper,
+            Lazy<IValidator<UserModel>> validator, Lazy<IValidator<User>> userValidator)
         {
             this.serviceFunc = serviceFunc;
             this.someServices = someServices;
@@ -36,11 +36,11 @@ namespace Autofac.API.Controllers
         {
             var pp = new User();
 
-            var mapperPp = mapper.Map<UserModel>(pp);
+            var mapperPp = mapper.Value.Map<UserModel>(pp);
 
-            userValidator.ValidateAndThrow(pp);
+            userValidator.Value.ValidateAndThrow(pp);
 
-            validator.ValidateAndThrow(mapperPp);
+            validator.Value.ValidateAndThrow(mapperPp);
 
             var values = serviceFunc().Get();
 

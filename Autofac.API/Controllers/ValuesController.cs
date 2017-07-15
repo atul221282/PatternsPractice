@@ -47,6 +47,7 @@ namespace Autofac.API.Controllers
             var data = this.serviceFunc().Save();
 
             var result = new string[] { data.GetType().GetProperty("Name").GetValue(data).ToString() };
+
             return result;
         }
 

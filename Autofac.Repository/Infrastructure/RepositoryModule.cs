@@ -43,7 +43,7 @@ namespace Autofac.Repository.Infrastructure
             builder.RegisterType<CacheInterceptor>().As<ICacheInterceptor>().Named<IInterceptor>(nameof(ICacheInterceptor));
             //builder.RegisterType<CallLogger>().As<ICallLogger>()
             //    .UsingConstructor(typeof(ITestRepository), typeof(IMemoryCache));
-            base.Load(builder);
+            //base.Load(builder);
 
         }
     }

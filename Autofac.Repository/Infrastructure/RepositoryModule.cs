@@ -1,6 +1,9 @@
 ﻿using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
+using Autofac.Repository.Model;
+using Autofac.Repository.Valiadtor;
 using Castle.DynamicProxy;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
@@ -21,6 +24,13 @@ namespace Autofac.Repository.Infrastructure
                    .EnableInterfaceInterceptors()
                    .InstancePerLifetimeScope();
 
+            builder.RegisterAssemblyTypes(ThisAssembly)
+                  .Where(t => t.Name.EndsWith("Validator"))
+                  .AsImplementedInterfaces()
+                  .InstancePerLifetimeScope();
+
+            builder.RegisterType<AutofacValidatorFactory>().As<IValidatorFactory>().SingleInstance();
+
             //builder.RegisterType<Repository>()
             //    .As<IRepository>()
             //    .InstancePerLifetimeScope()
@@ -33,6 +43,8 @@ namespace Autofac.Repository.Infrastructure
             builder.RegisterType<CacheInterceptor>().As<ICacheInterceptor>().Named<IInterceptor>(nameof(ICacheInterceptor));
             //builder.RegisterType<CallLogger>().As<ICallLogger>()
             //    .UsingConstructor(typeof(ITestRepository), typeof(IMemoryCache));
+            base.Load(builder);
+
         }
     }
 }

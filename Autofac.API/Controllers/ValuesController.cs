@@ -6,6 +6,7 @@ using System.Linq;
 using AutoMapper;
 using Autofac.Repository.Model;
 using System.Reflection;
+using FluentValidation;
 
 namespace Autofac.API.Controllers
 {
@@ -15,13 +16,18 @@ namespace Autofac.API.Controllers
         private readonly Func<IValueService> serviceFunc;
         private readonly Func<IEnumerable<ISomeService>> someServices;
         private readonly IMapper mapper;
+        private readonly IValidator<UserModel> validator;
+        private readonly IValidator<User> userValidator;
 
         public ValuesController(Func<IValueService> serviceFunc,
-            Func<IEnumerable<ISomeService>> someServices, IMapper mapper)
+            Func<IEnumerable<ISomeService>> someServices, IMapper mapper,
+            IValidator<UserModel> validator, IValidator<User> userValidator)
         {
             this.serviceFunc = serviceFunc;
             this.someServices = someServices;
             this.mapper = mapper;
+            this.validator = validator;
+            this.userValidator = userValidator;
         }
 
         // GET api/values
@@ -31,6 +37,10 @@ namespace Autofac.API.Controllers
             var pp = new User();
 
             var mapperPp = mapper.Map<UserModel>(pp);
+
+            userValidator.ValidateAndThrow(pp);
+
+            validator.ValidateAndThrow(mapperPp);
 
             var values = serviceFunc().Get();
 
